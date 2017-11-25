@@ -1,0 +1,22 @@
+#movies img, #movie img {
+  width: 100%;
+}
+
+/*ul .list-group, li .list-group-item {
+  content: "\2022";
+  font-family: FontAwesome;
+  margin-right: 10px;
+  display: inline;
+  vertical-align: middle;
+  font-size: 1.6em;
+  font-weight: normal;
+}*/
+
+@media(min-width:960px) {
+  #movies .col-md-3 .well {
+    height: 390px;
+  }
+  #movies .col-md-3 img {
+    height: 240px;
+  }
+}
