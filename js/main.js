@@ -58,16 +58,15 @@ function getMovie(){
         <div class="col-md-4">
           <img src="${movie.Poster}" class="thumbnail">
         </div>
-        <div class="col-md-8">
+        <div>
           <h2>${movie.Title}</h2>
           <ul class="list-group">
-          <li class="list-group-item>"<strong>Genre:</strong>${movie.Genre}<li>
-          <li class="list-group-item>"<strong>Released:</strong>${movie.Released}<li>
-          <li class="list-group-item>"<strong>Rated:</strong>${movie.Rated}<li>
-          <li class="list-group-item>"<strong>IMDb Rating:</strong>${movie.imdbRating}<li>
-          <li class="list-group-item>"<strong>Director:</strong>${movie.Director}<li>
-          <li class="list-group-item>"<strong>Writer:</strong>${movie.Writer}<li>
-          <li class="list-group-item>"<strong>Actors:</strong>${movie.Actors}<li>
+        <li class="list-group-item>"<strong>Genre:${movie.Genre}</strong></li>
+          <li class="list-group-item>"<strong>Rated:${movie.Rated}</strong></li>
+          <li class="list-group-item>"<strong>IMDb Rating:${movie.imdbRating}</strong></li>
+          <li class="list-group-item>"<strong>Director:${movie.Director}</strong></li>
+          <li class="list-group-item>"<strong>Writer:${movie.Writer}</strong></li>
+          <li class="list-group-item>"<strong>Actors:${movie.Actors}</strong></li>
           </ul>
         </div>
         </div>
