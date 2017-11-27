@@ -6,14 +6,14 @@ body {
   font-weight:100;
 }
 
-body{
+/*body{
   width: 100%;
   background: -webkit-linear-gradient(left, #0B486B, #F56217, #0B486B, #F56217);
   background: linear-gradient(to right, #0B486B, #F56217,#0B486B, #F56217);
   background-size: 600% 100%;
   -webkit-animation: HeroBG 20s ease infinite;
           animation: HeroBG 20s ease infinite;
-}
+}*/
 
 @-webkit-keyframes HeroBG {
   0% {
@@ -84,6 +84,7 @@ label {
   padding: 20px 30px;
   background: #F56217;
   border-bottom-right-radius: 5px;
+
 }
 
 panel-login>.panel-heading a{
@@ -169,6 +170,7 @@ a{
   border: none;
   border-radius: 0px;
   box-shadow: none;
+
 }
 .btn-register:hover,
 .btn-register:focus {
