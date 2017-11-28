@@ -1,0 +1,7 @@
+.navbar-nav>li {             /* <- this affects all navbars */
+    float: none;
+    text-align: center;
+}
+.navbar-custom>li {          /* <- this affects just my footer navbar */
+    display: inline-block;
+}
