@@ -19,4 +19,13 @@
   #movies .col-md-3 img {
     height: 240px;
   }
+  .jumbotron{
+  text-align: center;
+}
+select{
+
+  width: 400px;
+  text-align-last:center; 
+}
+
 }
