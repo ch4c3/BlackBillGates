@@ -31,6 +31,13 @@
         //sign in
         const promise = auth.signInWithEmailAndPassword(email,pass);
         promise.catch(e => console.log(e.message));
+        
+        firebase.auth().onAuthStateChanged(firebaseUser => {
+            if(firebaseUser) {
+                window.location = 'search.html';
+            }
+        });    
+
     });
     
     //Sign-Up
@@ -43,8 +50,16 @@
         //sign up
         const promise = auth.createUserWithEmailAndPassword(email, pass);
         promise.catch(e => console.log(e.message));
-        console.log(email);
-        console.log(pass);
+
+        //console.log(email);
+        //console.log(pass);
+        //window.location = 'search.html';
+        
+        firebase.auth().onAuthStateChanged(firebaseUser => {
+            if(firebaseUser) {
+                window.location = 'search.html';
+            }
+        });    
     });
     
     //logout btn
@@ -58,11 +73,12 @@
             console.log(firebaseUser);
             btnLogout.classList.remove('hide');
             btnLogin.classList.add('hide');
+            btnRegister.classList.add('hide');
         } else {
             console.log('not logged in');
             btnLogout.classList.add('hide');
             btnLogin.classList.remove('hide');
+           btnRegister.classList.remove('hide');
         }
-        
     });
 }());
