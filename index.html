@@ -11,31 +11,50 @@
     <title>RandoMovie</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/Start/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- Custom Fonts -->
     <link href="/Start/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-    <!-- Custom CSS -->
-    <link href="/Start/css/stylish-portfolio.css" rel="stylesheet">
-    
+
+
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <style>
-        .box { 
+        .box {
             width: 300px;
             padding: 50px;
             margin: 0 auto;
-        }  
-        
-        .black {
-            background: black;
         }
-        
+
+        .black {
+
+        background-color: rgba(5,4,2,0.6);
+
+        }
+
         .blue {
             background: blue;
         }
-      
+      h6{
+          color: white
+        }
+        body{
+          background-image: url('Start/img/movies.jpg');
+        }
+        .header {
+          padding-top: 300px;
+          padding-right: 70px;
+          position: fixed;
+          display: table;
+          width: 100%;
+          height: 100%;
+          -webkit-background-size: cover;
+          -moz-background-size: cover;
+          -o-background-size: cover
+          background-size: cover;
+        }
+      h3{
+        color: #cc0000;
+}
     </style>
   </head>
 
@@ -44,8 +63,9 @@
     <header class="header" id="top">
       <div class="text-vertical-center">
         <div class="box black" style= "margin:0 auto">
-        <h3 style="color:white">Movies</h3>
-        <h5 style="color:white">Login or Create an Account</h5>
+        <!-- <h3>Movies</h3> -->
+            <h3>RandoMovie<h3>
+        <h6>Login or Create an Account</h6>
         <br>
         <a href="Login Page/login.html" class="btn blue btn-dark btn js-scroll-trigger">GO</a>
         </div>
