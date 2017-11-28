@@ -34,7 +34,7 @@
         
         firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser) {
-                window.location = 'search.html';
+                window.location = '../search.html';
             }
         });    
 
@@ -57,7 +57,7 @@
         
         firebase.auth().onAuthStateChanged(firebaseUser => {
             if(firebaseUser) {
-                window.location = 'search.html';
+                window.location = '../search.html';
             }
         });    
     });
