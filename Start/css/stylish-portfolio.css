@@ -160,7 +160,7 @@ hr.small {
   background: url(../img/movies.jpg) no-repeat center center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
-  -o-background-size: cover;
+  -o-background-size: cover
   background-size: cover;
 }
 
