@@ -1,6 +1,7 @@
 $(document).ready(() => {
   $('#searchForm').on('submit', (e) => {
     let genre = $('#genre').val();
+      sessionStorage.setItem('genre', genre);
     getMovies(genre);
     e.preventDefault();
   });
@@ -12,29 +13,26 @@ return url;
 
 }
 function getMovies(genre){
-
+  //API query that allows user to search by genre
   axios.get('http://api.themoviedb.org/3/discover/movie?with_genres='+ genre + '&api_key=92f92290f10178b216db9b7c49ec780e')
   .then((response) => {
       // Success Case
-
-  //    console.log(response);
       let movies = response.data.results;
-    //  console.log(movies);
-    //  console.log(movies.original_title);
+
       let output = '';
       var url = '';
         var image;
         var movieArray = [];
-        var finalMovieArray = [];
+
         var randomNum= 0;
         var randomNumArray = [];
 
+        //put all of the movie objects returned into an array
             $.each(movies, (index, movie) => {
-
               movieArray.push(movie);
-
-
             });
+
+            //generate a random number and then check to see if that number has already been generated
             for(var i = 0; i<6; i++){
                 randomNum = Math.floor(Math.random() * movieArray.length);
                 for(j=0; j < randomNumArray.length; j++){
@@ -42,10 +40,11 @@ function getMovies(genre){
                   randomNum =  Math.floor(Math.random() * movieArray.length);
                 }
               }
+                //if that number hasnt been generated, add to the list of numbers
                 randomNumArray.push(randomNum);
-                finalMovieArray.push(movieArray[randomNum]);
-                url = getImages(movieArray[randomNum].poster_path);
 
+                //index the movies array at the random index and display the title and poster of that movie
+                url = getImages(movieArray[randomNum].poster_path);
                   output += `<div class="col-md-2">
                   <div class="well text-center">
                   <img src=${url} height=256px; width=150px;>
@@ -58,7 +57,7 @@ function getMovies(genre){
 
       // Throws the output onto the page
       $('#movies').html(output);
-  //  saveMovie(finalMovieArray);
+
   })
   .catch((error) => {
       // Error Case
@@ -72,22 +71,30 @@ function getMovies(genre){
   });
 }
 
-/*unction saveMovie(movieArray){
-return movieArray;
-}*/
+
+
 // when the user has selected a movie this funciton will be called
 function movieSelected(id){
   sessionStorage.setItem('movieID', id);
   window.location = 'movie.html';
   return false;
 }
+//populates the movies.html page with the movie selected
 function getMovie(){
+
   let movieID = sessionStorage.getItem('movieID');
+//call the more info API that returns more info about the movie
   axios.get('https://api.themoviedb.org/3/movie/'+ movieID + '?api_key=92f92290f10178b216db9b7c49ec780e&language=en-US')
   .then((response)=>{
-  console.log(response);
+    //since movie may have multiple genres, this ensures it will only show the genre which was selected
+    let genreID = sessionStorage.getItem('genre');
+    let movie = response.data;
+    var i = 0;
+    while(genreID != movie.genres[i].id){
+      i++;
+        }
+      let genre = movie.genres[i].name;
 
-  let movie = response.data;
       let image = getImages(response.data.poster_path);
       let output =`
       <div class="row">
@@ -98,7 +105,7 @@ function getMovie(){
           <h2>${movie.original_title}</h2>
           <ul class="list-group">
         <li class="list-group-item>"<strong>Release Date: ${movie.release_date}</strong></li>
-          <li class="list-group-item>"<strong>Genre: ${movie.genres[0].name}</strong></li>
+          <li class="list-group-item>"<strong>Genre: ${genre}</strong></li>
           <li class="list-group-item>"<strong>Production Company: ${movie.production_companies[0].name}</strong></li>
           <li class="list-group-item>"<strong>Famous Quote: "${movie.tagline}"</strong></li>
           </ul>
