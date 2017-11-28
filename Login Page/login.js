@@ -73,11 +73,12 @@
             console.log(firebaseUser);
             btnLogout.classList.remove('hide');
             btnLogin.classList.add('hide');
+            btnRegister.classList.add('hide');
         } else {
             console.log('not logged in');
             btnLogout.classList.add('hide');
             btnLogin.classList.remove('hide');
-           
+           btnRegister.classList.remove('hide');
         }
     });
 }());
