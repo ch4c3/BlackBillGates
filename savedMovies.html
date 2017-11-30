@@ -5,9 +5,18 @@
   <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
   <link rel="stylesheet" href="css/thumbnail-gallery.css">
   <link rel="stylesheet" href="navbar.css">
+      <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
+      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script src="js/main.js"></script>
 </head>
-
+<script>
+$( document ).ready(function() {
+    getSavedMovies();
+});
+</script>
 <body>
+
     <nav class="navbar navbar-inverse">
         <div class="container">
           <div class="navbar-header">
@@ -15,7 +24,7 @@
             <a class="navbar-text text-left" style="color: #222" href="Login Page/login.html">Logged in as</a>
           </div>
           <ul style="display: inline-block;" class="nav navbar-nav navbar-custom">
-            <li><a href="savedMovies.html" class="btn btn-primary">Saved Movies</a></li>
+            <li><a href="#" class="btn btn-primary">Saved Movies</a></li>
             <li><a href="Start/start.html"  class="btn btn-primary" id="logout-submit">Logout</a></li>
           </ul>
           </div>
@@ -24,7 +33,9 @@
   <div class="headerContainer">
     <h1>Saved Movies</h1>
   </div>
-  <div class="bodyContainer">
+  <div class="container">
+    <div id="movies" class="row">
+    </div>
   </div>
 </body>
 

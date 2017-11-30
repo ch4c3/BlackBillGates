@@ -2,10 +2,14 @@ $(document).ready(() => {
   $('#searchForm').on('submit', (e) => {
     let genre = $('#genre').val();
       sessionStorage.setItem('genre', genre);
+
     getMovies(genre);
     e.preventDefault();
   });
 });
+
+
+
 function getImages(posterPath){
 
 var url = "https://image.tmdb.org/t/p/w500/" + posterPath;
@@ -119,12 +123,15 @@ function getMovie(){
             <hr>
             <a href="http://imdb.com/title/${movie.imdb_id}" target="_blank" class="btn btn-primary">View IMDb</a>
             <a href="search.html" class="btn btn-primary">Go Back To Search</a>
-            <a href="" class="btn btn-primary">Save Movie</a>
+            <a onclick="saveMovie()" class="btn btn-primary href="#">Save Movie</a>
         </div>
         </div>
       `;
       // throws the output onto the page
         $('#movie').html(output);
+
+        localStorage.setItem("movie", movie.id);
+
 
   })
   .catch((error) => {
@@ -137,4 +144,102 @@ function getMovie(){
       }
       console.log(error.config);
   });
+}
+function connectToDB(){
+  //connect to the database
+    var config = {
+      apiKey: "AIzaSyBNy4-ulO5eWHcZThp6PDnODd5K_erFyv0",
+      authDomain: "loginpage-8eb23.firebaseapp.com",
+      databaseURL: "https://loginpage-8eb23.firebaseio.com",
+      projectId: "loginpage-8eb23",
+      storageBucket: "",
+      messagingSenderId: "150801860151"
+    };
+    firebase.initializeApp(config);
+
+}
+
+function saveMovie(){
+  connectToDB();
+  const db = firebase.database();
+      var ref = db.ref();
+
+    var movies = ref.child('movies');
+
+    //variables to be stored
+    const email = localStorage.getItem('email');
+    const movieID = localStorage.getItem('movie');
+    //push new info onto the stack
+    movies.push({
+      "email": email,
+      "id": movieID
+    });
+
+console.log("I was clicked!");
+}
+// //pull the movieIDs where email = email in local storage, store into an array
+  function getSavedMovies(){
+
+    //connect to the database
+        connectToDB();
+          const db = firebase.database();
+          const ref = db.ref();
+            const email = localStorage.getItem('email');
+            var movieInfo = [];
+
+        ref.child('movies').orderByChild('email').equalTo(email).on("value", function(snapshot) {
+
+
+
+
+      snapshot.forEach(function(data) {
+
+      var movies = data.child('id').val();
+
+
+           movieInfo.push(movies);
+
+      });
+
+      getMovieInfo(movieInfo);
+  });
+
+
+ }
+
+ // to sleep before sending to server(JUST IN CASE THERES TOO MANY REQUESTS)
+ function sleep(milliseconds) {
+     var start = new Date().getTime();
+     for (var i = 0; i < 1e7; i++) {
+         if ((new Date().getTime() - start) > milliseconds){
+             break;
+         }
+     }
+ }
+// //function that would loop through each movie and get the poster and name(using getSavedMovies)
+function getMovieInfo(movieInfo){
+
+for(var i=0; i < movieInfo.length; i++){
+    axios.get('https://api.themoviedb.org/3/movie/'+ movieInfo[i] + '?api_key=92f92290f10178b216db9b7c49ec780e&language=en-US')
+    .then((response)=>{
+  let movie = response.data;
+
+console.log(movie);
+
+    })
+    .catch((error) => {
+        // Error
+        if (error.response) {
+        } else if (error.request) {
+            console.log(error.request);
+        } else {
+            console.log('Error', error.message);
+        }
+        console.log(error.config);
+    });
+
+
+}
+
+
 }
