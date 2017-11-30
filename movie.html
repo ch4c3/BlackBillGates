@@ -5,17 +5,34 @@
     <title>MOVIEInfo</title>
     <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
     <link rel="stylesheet" href="navbar.css">
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+    
+    <script src="Login Page/login.js"></script>
   </head>
   <body>
       <nav class="navbar navbar-inverse">
           <div class="container">
             <div class="navbar-header">
               <a class="navbar-brand"style="color: #cc0000;"href="search.html">RandoMovie</a>
-              <a class="navbar-text text-left" style="color: #222" href="Login Page/login.html">Logged in as</a>
+              
+              <script>
+                var user = firebase.auth().currentUser;
+                var email;
+                firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    email = user.email;
+                    document.getElementById("loggedInAs").innerHTML = 'Logged in as ' + email;
+                } else {
+                 // No user is signed in.
+              }
+            }); 
+              </script>
+  
+              <p style="display: inline-block;" id="loggedInAs"></p>
             </div>
             <ul style="display: inline-block;" class="nav navbar-nav navbar-custom">
               <li><a href="savedMovies.html" class="btn btn-primary">Saved Movies</a></li>
-              <li><a href="Start/start.html"  class="btn btn-primary" id="logout-submit">Logout</a></li>
+              <li><a href="index.html"  class="btn btn-primary" id="logout-submit">Logout</a></li>
             </ul>
             </div>
           </div>
