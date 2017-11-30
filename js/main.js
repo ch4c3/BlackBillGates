@@ -114,7 +114,6 @@ function getMovie(){
           <ul class="list-group">
         <li class="list-group-item>"<strong>Release Date: ${movie.release_date}</strong></li>
           <li class="list-group-item>"<strong>Genre: ${genre}</strong></li>
-          <li class="list-group-item>"<strong>Production Company: ${movie.production_companies[0].name}</strong></li>
           <li class="list-group-item>"<strong>Famous Quote: "${movie.tagline}"</strong></li>
           </ul>
         </div>
