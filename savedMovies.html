@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>Saved Movies</title>
+  <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
   <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.min.css">
   <link rel="stylesheet" href="css/thumbnail-gallery.css">
   <link rel="stylesheet" href="navbar.css">
-      <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-      <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-      <script src="js/main.js"></script>
+  <script src="Login Page/login.js"></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="js/main.js"></script>
 </head>
 <script>
 $( document ).ready(function() {
@@ -38,8 +39,8 @@ $( document ).ready(function() {
             <p style="display: inline-block;" id="loggedInAs"></p>
           </div>
           <ul style="display: inline-block;" class="nav navbar-nav navbar-custom">
-            <li><a href="savedMovies.html" class="btn btn-primary">Saved Movies</a></li>
-            <li><a href="index.html"  class="btn btn-primary" id="logout-submit">Logout</a></li>
+            <li><a href="#" class="btn btn-primary">Saved Movies</a></li>
+            <li><a href="Login Page/login.html"  class="btn btn-primary">Logout</a></li>
           </ul>
           </div>
         </div>

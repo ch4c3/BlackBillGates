@@ -11,7 +11,6 @@ $(document).ready(() => {
 
 
 function getImages(posterPath){
-
 var url = "https://image.tmdb.org/t/p/w500/" + posterPath;
 return url;
 
@@ -76,7 +75,11 @@ function getMovies(genre){
 }
 
 
-
+function movieSelect(id){
+  localStorage.setItem('movieID', id);
+  window.location = 'movie.html';
+  return false;
+}
 // when the user has selected a movie this funciton will be called
 function movieSelected(id){
   sessionStorage.setItem('movieID', id);
@@ -87,6 +90,7 @@ function movieSelected(id){
 function getMovie(){
 
   let movieID = sessionStorage.getItem('movieID');
+  console.log(movieID);
 //call the more info API that returns more info about the movie
   axios.get('https://api.themoviedb.org/3/movie/'+ movieID + '?api_key=92f92290f10178b216db9b7c49ec780e&language=en-US')
   .then((response)=>{
@@ -145,24 +149,12 @@ function getMovie(){
       console.log(error.config);
   });
 }
-function connectToDB(){
-  //connect to the database
-    var config = {
-      apiKey: "AIzaSyBNy4-ulO5eWHcZThp6PDnODd5K_erFyv0",
-      authDomain: "loginpage-8eb23.firebaseapp.com",
-      databaseURL: "https://loginpage-8eb23.firebaseio.com",
-      projectId: "loginpage-8eb23",
-      storageBucket: "",
-      messagingSenderId: "150801860151"
-    };
-    firebase.initializeApp(config);
 
-}
 
 function saveMovie(){
-  connectToDB();
+ 
   const db = firebase.database();
-      var ref = db.ref();
+  var ref = db.ref();
 
     var movies = ref.child('movies');
 
@@ -174,37 +166,22 @@ function saveMovie(){
       "email": email,
       "id": movieID
     });
-
-console.log("I was clicked!");
+  console.log("Movie was saved!");
 }
 // //pull the movieIDs where email = email in local storage, store into an array
   function getSavedMovies(){
+      const db = firebase.database();
+      const ref = db.ref();
+      const email = localStorage.getItem('email');
+      var movieInfo = [];
 
-    //connect to the database
-        connectToDB();
-          const db = firebase.database();
-          const ref = db.ref();
-            const email = localStorage.getItem('email');
-            var movieInfo = [];
-
-        ref.child('movies').orderByChild('email').equalTo(email).on("value", function(snapshot) {
-
-
-
-
-      snapshot.forEach(function(data) {
-
-      var movies = data.child('id').val();
-
-
-           movieInfo.push(movies);
-
+      ref.child('movies').orderByChild('email').equalTo(email).on("value", function(snapshot) {
+        snapshot.forEach(function(data) {
+          var movies = data.child('id').val();
+          movieInfo.push(movies);
+        });
+        getMovieInfo(movieInfo);
       });
-
-      getMovieInfo(movieInfo);
-  });
-
-
  }
 
  // to sleep before sending to server(JUST IN CASE THERES TOO MANY REQUESTS)
@@ -218,14 +195,39 @@ console.log("I was clicked!");
  }
 // //function that would loop through each movie and get the poster and name(using getSavedMovies)
 function getMovieInfo(movieInfo){
-
+console.log(movieInfo);
+var movArray = [];
 for(var i=0; i < movieInfo.length; i++){
+  console.log(i); 
+ 
     axios.get('https://api.themoviedb.org/3/movie/'+ movieInfo[i] + '?api_key=92f92290f10178b216db9b7c49ec780e&language=en-US')
     .then((response)=>{
-  let movie = response.data;
+      
+    let output='';
+    let movies = response.data;
+    var url = '';
+    var image;
 
-console.log(movie);
-
+    
+    movArray.push({
+      "id":movies.id,
+      "title":movies.title,
+      "poster":movies.poster_path
+    });
+    
+    for(var v =0; v<movieInfo.length; v++){
+      url = getImages(movArray[v].poster);
+      output += `<div class="col-md-2">
+        <div class="well text-center">
+       <img src=${url} height=256px; width=150px;>
+        <h5>${movArray[v].title}</h5>
+      <a onclick="movieSelected('${movArray[v].id}')" class="btn btn-primary" href="#">Movie Details</a>
+        </div>
+        </div>
+        `;
+    }
+    // throws the output onto the page
+      $('#movies').html(output);
     })
     .catch((error) => {
         // Error
