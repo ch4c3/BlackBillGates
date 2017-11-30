@@ -126,7 +126,7 @@ function getMovie(){
             <hr>
             <a href="http://imdb.com/title/${movie.imdb_id}" target="_blank" class="btn btn-primary">View IMDb</a>
             <a href="search.html" class="btn btn-primary">Go Back To Search</a>
-            <a onclick="saveMovie()" class="btn btn-primary href="#">Save Movie</a>
+            <a onclick="saveMovie()" id="savetoUnsave" class="btn btn-primary href="#">Save Movie</a>
         </div>
         </div>
       `;
@@ -166,6 +166,7 @@ function saveMovie(){
       "id": movieID
     });
   console.log("Movie was saved!");
+  document.getElementById("savetoUnsave").innerHTML="Unsave Movie";
 }
 // //pull the movieIDs where email = email in local storage, store into an array
   function getSavedMovies(){
